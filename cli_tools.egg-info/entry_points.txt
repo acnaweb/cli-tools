@@ -1,0 +1,7 @@
+[console_scripts]
+add = cli.calculator:add
+authenticate = cli.authenticate:auth
+cli = cli.main:main
+greetings = cli.greeter:greet
+subtract = cli.calculator:subtract
+
