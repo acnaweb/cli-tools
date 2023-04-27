@@ -1,15 +1,29 @@
-.ONESHELL:
-.PHONY: clean venv act tests scripts
+clean: 
+	pip uninstall acnawebcli -y
 
-ACTIVATE_LINUX:=. venv/bin/activate
+install: clean
+	python setup.py install
 
-venv:
-	test -d venv || python3 -m venv venv
-	
-install: 
-	@pip install -r requirements.txt
-	@pip install -e .	
+dev: clean
+	pip install -e .
+	pip install -r requirements-dev.txt
 
+build:
+	python -m build
 
-show:
-	greetings --help
+help:
+	python setup.py --help-commands	
+
+lint:
+	python setup.py flake8
+
+test:
+	python setup.py test	
+
+package: 
+	rm -rf dist
+	python setup.py sdist 
+
+push: test package 
+	twine upload dist/*
+
